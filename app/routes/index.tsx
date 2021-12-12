@@ -109,11 +109,11 @@ function CounterStrike({ details }: any) {
                 <div className="mt-8">
                     <p className="text-gray-200 text-2xl font-semibold text-center"> Available maps </p>
 
-                    <div className="grid grid-cols-4 gap-2 mt-4">
+                    <div className="grid grid-cols-4 mt-4">
                         {maps.map(map => (
-                            <div className="w-full h-36 bg-cover bg-center bg-no-repeat flex items-end justify-center rounded-md overflow-hidden" style={{ backgroundImage: `url('${map.image_url}')` }} key={map.name}>
-                                <div className="w-full px-3 py-1 bg-csgo bg-opacity-50 backdrop-blur-lg text-center">
-                                    <p className="text-white text-lg font-semibold"> {map.name} </p>
+                            <div className="w-full h-36 bg-cover bg-center bg-no-repeat flex items-end justify-center" style={{ backgroundImage: `url('${map.image_url}')` }} key={map.name}>
+                                <div className="w-full px-3 py-1 bg-gray-800 border-b-4 border-primary text-center">
+                                    <p className="text-gray-300 text-lg font-semibold"> {map.name} </p>
                                 </div>
                             </div>
                         ))}
@@ -178,10 +178,10 @@ function Pubg({ details }: any) {
                 <div className="mt-12">
                     <p className="text-gray-300 text-2xl font-semibold text-center"> Available maps </p>
 
-                    <div className="grid grid-cols-4 gap-2 mt-4">
+                    <div className="grid grid-cols-4 mt-4">
                         { maps.map(map => (
-                            <div className="w-full h-36 bg-cover bg-center bg-no-repeat flex items-end justify-center rounded-md overflow-hidden" style={{ backgroundImage: `url('${map.image_url}')` }} key={map.name}>
-                                <div className="w-full px-3 py-1 bg-pubg bg-opacity-60 backdrop-blur-lg text-center">
+                            <div className="w-full h-36 bg-cover bg-center bg-no-repeat flex items-end justify-center" style={{ backgroundImage: `url('${map.image_url}')` }} key={map.name}>
+                                <div className="w-full px-3 py-1 bg-gray-800 border-b-4 border-primary text-center">
                                     <p className="text-white text-lg font-semibold"> { map.name } </p>
                                 </div>
                             </div>
