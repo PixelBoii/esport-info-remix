@@ -273,7 +273,7 @@ function GameCard({ details }: any) {
 
     return (
         <Link to={`#${details.id}`}>
-            <div className="relative w-full bg-gray-800 rounded-md">
+            <div className="relative w-full bg-gray-900 rounded-md border-4 border-primary">
                 <div className="px-5 py-6">
                     <p className="text-gray-200 font-semibold text-2xl"> {details.name} </p>
                     <p className="text-gray-300 font-semibold"> {details.views} views </p>
@@ -289,7 +289,7 @@ function GameCard({ details }: any) {
                                     label: 'Views',
                                     data: details.chartData.map((e: number[]) => e[1]),
                                     borderColor: 'rgba(167, 38, 3)',
-                                    borderWidth: 4,
+                                    borderWidth: 3,
                                     fill: {
                                         target: 'origin',
                                         above: 'rgba(167, 38, 3, .3)'
@@ -311,22 +311,28 @@ export default function Index() {
 
     return (
         <div>
-            <div className="container mx-auto max-w-7xl py-20 px-10 md:px-0 min-h-screen flex flex-col justify-center">
-                <p className="text-gray-100 font-black text-5xl text-center"> Most popular E-Sports </p>
-
-                <div className="grid grid-cols-3 gap-6 mt-12">
-                    <GameCard details={games['csgo']} />
-                    <GameCard details={games['pubg']} />
-                    <GameCard details={games['dota-2']} />
+            <div className="min-h-screen flex flex-col justify-center">
+                <div className="bg-gray-900">
+                    <div className="pt-24 pb-32 container mx-auto max-w-7xl px-10 md:px-0">
+                        <p className="text-gray-100 font-black text-5xl text-center"> Most popular E-Sports </p>
+                    </div>
                 </div>
 
-                <Link to="#csgo">
-                    <div className="bg-gray-600 rounded-full h-12 w-12 animate-bounce mt-12 mx-auto flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
+                <div className="grow container mx-auto max-w-7xl px-10 md:px-0 -mt-16 flex flex-col justify-between pb-12">
+                    <div className="grid grid-cols-3 gap-6">
+                        <GameCard details={games['csgo']} />
+                        <GameCard details={games['pubg']} />
+                        <GameCard details={games['dota-2']} />
                     </div>
-                </Link>
+
+                    <Link to="#csgo">
+                        <div className="bg-gray-600 rounded-full h-12 w-12 animate-bounce mt-12 mx-auto flex items-center justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                            </svg>
+                        </div>
+                    </Link>
+                </div>
             </div>
 
             <CounterStrike details={games['csgo']} />
