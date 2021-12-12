@@ -1,8 +1,9 @@
-import { Link, useLoaderData } from "remix";
+import { Link } from "remix";
 import { app } from "~/firebase.js";
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import { Line } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip } from 'chart.js';
+import { useState, useEffect } from 'react'
 
 ChartJS.register(
     CategoryScale,
@@ -12,28 +13,6 @@ ChartJS.register(
     Filler,
     Tooltip,
 );
-
-export async function loader() {
-    let db = getFirestore(app);
-    let query = await getDocs(collection(db, 'games'));
-
-    let games = query.docs.reduce((docs, e) => {
-        let data = e.data();
-
-        return {
-            ...docs,
-            [e.id]: {
-                ...data,
-                id: e.id,
-                chartData: require(`../../public/${data.chart_data}.json`)
-            },
-        }
-    }, {});
-
-    return {
-        games
-    };
-}
 
 function CounterStrike({ details }: any) {
     const maps = [
@@ -307,9 +286,36 @@ function GameCard({ details }: any) {
 }
 
 export default function Index() {
-    let { games } = useLoaderData();
+    let [games, setGames]: any[] = useState(null);
 
-    return (
+    useEffect(() => {
+        async function fetchGames() {
+            let db = getFirestore(app);
+            let query = await getDocs(collection(db, 'games'));
+        
+            let docs: any = query.docs.reduce((docs, e) => {
+                let data = e.data();
+        
+                return {
+                    ...docs,
+                    [e.id]: {
+                        ...data,
+                        id: e.id,
+                    },
+                }
+            }, {});
+
+            for (let i in docs) {
+                docs[i].chartData = await (await fetch(`${docs[i].chart_data}.json`)).json();
+            }
+
+            return docs;
+        }
+        
+        fetchGames().then(setGames);
+    }, []);
+
+    return games ? (
         <div>
             <div className="min-h-screen flex flex-col justify-center">
                 <div className="bg-gray-900">
@@ -338,6 +344,10 @@ export default function Index() {
             <CounterStrike details={games['csgo']} />
             <Pubg details={games['pubg']} />
             <Dota2 details={games['dota-2']} />
+        </div>
+    ) : (
+        <div className="min-h-screen flex items-center justify-center">
+            <p className="text-gray-300 font-semibold text-lg"> Loading Games.. </p>
         </div>
     );
 }
