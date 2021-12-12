@@ -273,7 +273,7 @@ function GameCard({ details }: any) {
 
     return (
         <Link to={`#${details.id}`}>
-            <div className="relative w-full bg-gray-900 rounded-md border-4 border-primary">
+            <div className="relative w-full bg-gray-900 rounded-md border-4 border-b-0 border-primary">
                 <div className="px-5 py-6">
                     <p className="text-gray-200 font-semibold text-2xl"> {details.name} </p>
                     <p className="text-gray-300 font-semibold"> {details.views} views </p>
