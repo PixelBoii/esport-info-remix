@@ -250,6 +250,16 @@ function GameCard({ details }: any) {
         lineTension: 0.8,
     }
 
+    let [chartData, setChartData] = useState([]);
+
+    useEffect(() => {
+        const fetchChartData = async () => {
+            return (await fetch(`${details.chart_data}.json`)).json();
+        };
+
+        fetchChartData().then(setChartData);
+    }, []);
+
     return (
         <Link to={`#${details.id}`}>
             <div className="relative w-full bg-gray-900 rounded-md border-4 border-b-0 border-primary">
@@ -262,11 +272,11 @@ function GameCard({ details }: any) {
                     <Line
                         height={100}
                         data={{
-                            labels: details.chartData.map((e: number[]) => new Date(e[0]).toLocaleDateString()),
+                            labels: chartData.map((e: number[]) => new Date(e[0]).toLocaleDateString()),
                             datasets: [
                                 {
                                     label: 'Views',
-                                    data: details.chartData.map((e: number[]) => e[1]),
+                                    data: chartData.map((e: number[]) => e[1]),
                                     borderColor: 'rgba(167, 38, 3)',
                                     borderWidth: 3,
                                     fill: {
@@ -293,7 +303,7 @@ export default function Index() {
             let db = getFirestore(app);
             let query = await getDocs(collection(db, 'games'));
         
-            let docs: any = query.docs.reduce((docs, e) => {
+            return query.docs.reduce((docs, e) => {
                 let data = e.data();
         
                 return {
@@ -304,12 +314,6 @@ export default function Index() {
                     },
                 }
             }, {});
-
-            for (let i in docs) {
-                docs[i].chartData = await (await fetch(`${docs[i].chart_data}.json`)).json();
-            }
-
-            return docs;
         }
         
         fetchGames().then(setGames);
