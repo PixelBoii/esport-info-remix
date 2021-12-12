@@ -102,7 +102,7 @@ function CounterStrike({ details }: any) {
             </div>
 
             <div className="py-8 container max-w-5xl mx-auto">
-                <div className="bg-gray-800 px-6 py-4 rounded-md">
+                <div className="text-center">
                     <p className="text-gray-200 font-semibold leading-7"> Counter-Strike: Global Offensive (CS:GO) is a multiplayer first-person shooter developed by Valve and Hidden Path Entertainment. It is the fourth game in the Counter-Strike series. Developed for over two years, Global Offensive was released for Windows, macOS, Xbox 360, and PlayStation 3 in August 2012, and for Linux in 2014. Valve still regularly updates the game, both with smaller balancing patches and larger content additions. </p>
                 </div>
 
