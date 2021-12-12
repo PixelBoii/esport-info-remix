@@ -111,6 +111,6 @@ function Document({
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div> {children} </div>
+    <div className="bg-[#090C02] min-h-screen"> {children} </div>
   );
 }
